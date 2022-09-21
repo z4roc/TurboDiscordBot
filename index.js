@@ -30,8 +30,8 @@ client.login(process.env.DISCORD_TOKEN);
 client.once("ready", () => {
     console.log(`${client.user.tag} is now online!`);
     client.user.setActivity({
-        name: "Cyberpunk 2077",
-        type: ActivityType.Playing
+        name: "Hentai in 4k",
+        type: ActivityType.Watching
     });  
 });
 
