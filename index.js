@@ -32,8 +32,12 @@ client.once("ready", () => {
     client.user.setActivity({
         name: "Cyberpunk 2077",
         type: ActivityType.Playing
-    });
-  
+    });  
+});
+
+client.on("guildMemberAdd", async (member) => {
+    let role = member.guild.roles.cache.find(r => r.name === "Normies");
+    await member.roles.add(role);
 });
 
 /*client.on("messageCreate", async (message) => {

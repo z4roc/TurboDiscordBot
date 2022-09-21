@@ -11,6 +11,8 @@ module.exports = {
     
     switch(interaction.options.getSubcommand()) {
       case "server": {
+        const roleList = interaction.guild.roles.cache;
+        console.log(roleList);
         interaction.reply( {
           embeds: [
             new EmbedBuilder()
@@ -22,10 +24,15 @@ module.exports = {
                   value: `${interaction.guild.channels.cache.size} Channels`
                 },
                 {
+                  name: "Roles",
+                  value: `${interaction.guild.roles.cache.size}`
+                },
+                {
                   name: "Created At",
                   value: `<t:${Math.round(interaction.guild.createdTimestamp/1000)}>`,
                   inline: true
                 }
+
               ])
           ]
         });
