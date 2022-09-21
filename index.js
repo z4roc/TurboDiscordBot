@@ -38,6 +38,9 @@ client.once("ready", () => {
 client.on("guildMemberAdd", async (member) => {
     let role = member.guild.roles.cache.find(r => r.name === "Normies");
     await member.roles.add(role);
+    const channel = client.channels.cache.find(c => c.name === "welcome");
+    channel.send(`Welcome normie @${member.user.username}`);
+    
 });
 
 /*client.on("messageCreate", async (message) => {
