@@ -1,7 +1,7 @@
-import dotenv from 'dotenv';
-dotenv.config();
+require("dotenv").config();
 
-import { ActivityType, Client, GatewayIntentBits } from 'discord.js';
+const { ActivityType, Client, GatewayIntentBits, Collection } = require('discord.js');
+const fs = require('fs');
 
 const client = new Client( 
     {
@@ -16,6 +16,15 @@ const client = new Client(
         ]
     });
 
+client.commands = new Collection()
+
+const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
+
+commandFiles.forEach( commandFile => {
+  const command = require(`./commands/${commandFile}`);
+  client.commands.set(command.data.name, command);
+});
+
 client.login(process.env.DISCORD_TOKEN);
 
 client.once("ready", () => {
@@ -29,6 +38,25 @@ client.once("ready", () => {
 client.on("messageCreate", async (message) => {
     if(!message?.author.bot) {
         message.channel.send(`ECHO ${message.content}`)
+    }
+});
+
+client.on("interactionCreate", async (interaction) => {
+    if(!interaction.isCommand()) return;
+
+    const command = client.commands.get(interaction.commandName);
+
+    if(command) {
+        try {
+            await command.execute(interaction);
+        }
+        catch(error) {
+            if(interaction.deferred || interaction.replied) {
+                interaction.editReply("An error has occured");
+            } else {
+                interaction.reply("An error has occured");
+            }
+        }
     }
 });
 
