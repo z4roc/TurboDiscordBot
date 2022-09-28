@@ -19,14 +19,13 @@ async function GetMessageCount(client, channelId) {
 }
 
 module.exports = {
-  data: new SlashCommandBuilder().setName("purge").setDescription("Begone messages!"),
+  data: new SlashCommandBuilder().setName("purge").setDescription("Begone messages!")
+    .addIntegerOption(option => 
+      option.setName("count")
+      .setDescription("The number of Messages you want to delete")
+      .setRequired(true)),
   async execute(client, interaction) {
-    
-    //const msgCount = await GetMessageCount(client, interaction.channelId);
-    //console.log(msgCount);
-    //interaction.reply(`$This channel contains ${msgCount} messages`);
-    await interaction.channel.bulkDelete(20);
-    interaction.reply(`I deleted Messages!`);
-    //interaction.channel.send(`Deleted ${msgcount} messages`);
+      await interaction.channel.bulkDelete(interaction.options.getInteger("count"));
+      interaction.reply(`I deleted ${interaction.options.getInteger("count")} Messages!`);
   }
 };
