@@ -18,11 +18,26 @@ const restClient = new REST({
   version: "10"
 }).setToken(process.env.DISCORD_TOKEN);
 
+restClient.put(Routes.applicationGuildCommands(process.env.APPLICATION_ID, process.env.GUILD_ID), { body: [] })
+	.then(() => console.log('Successfully deleted all guild commands.'))
+	.catch(console.error);
+
+
+restClient.put(Routes.applicationCommands(process.env.APPLICATION_ID), { body: [] })
+	.then(() => console.log('Successfully deleted all application commands.'))
+	.catch(console.error);
+
+
+
 restClient.put(Routes.applicationGuildCommands(process.env.APPLICATION_ID, process.env.GUILD_ID),
 {
   body: commands
 }).then(() => {
-  console.log(`Successfully registered ${commands.length} commands`);
+  console.log(`Successfully registered ${commands.length} commands in the Guild`);
 }).catch(console.error);
+
+restClient.put(Routes.applicationCommands(process.env.APPLICATION_ID), { body: commands })
+	.then(() => console.log('Successfully placed all commands globally'))
+	.catch(console.error);
 
 

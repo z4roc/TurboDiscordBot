@@ -12,7 +12,8 @@ const client = new Client(
             GatewayIntentBits.DirectMessages,
             GatewayIntentBits.MessageContent,
             GatewayIntentBits.GuildMessageTyping,
-            GatewayIntentBits.GuildPresences
+            GatewayIntentBits.GuildPresences,
+            GatewayIntentBits.GuildVoiceStates
         ]
     });
 

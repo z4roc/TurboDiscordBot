@@ -1,22 +1,12 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { AudioPlayer, joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus } = require('@discordjs/voice');
-
 const ytdl = require('ytdl-core');
 
 module.exports = {
-  data: new SlashCommandBuilder().setName("play").setDescription("Play the Audio of a Youtube Video!")
-    .addStringOption(option => option.setName("url").setDescription("The video url you want to listen to").setRequired(true)),
+  data: new SlashCommandBuilder().setName("morb").setDescription("AAUUUUUGGGGGGHHHHH"),
   async execute(client, interaction) {
-  
-    const url = interaction.options.getString("url");
+    const url = "https://www.youtube.com/watch?v=BmbM5B4NjxY";
     const { voice } = interaction.member;
-    if(!voice.channelId) {
-      interaction.reply(`Youre not connected to a voice channel`);
-        return;  
-    }
-    
-    //'C:/Users/Aktamirov/Music/MP3 Downloader/Mortals.mp3'
-
     const player  = createAudioPlayer();
 
     const stream = ytdl(url, { filter: 'audioonly'} );
@@ -31,9 +21,9 @@ module.exports = {
 
     player.play(resource);
     connection.subscribe(player);
-    interaction.reply('Playing ' + url +  ' in ' + voice.channelId);
-    
-    player.on("error", () => {
+    interaction.reply("morb!");
+
+    player.on("error", (error) => {
       if(interaction.deferred || interaction.replied) {
         interaction.editReply("An error has occured" + error);
       } else {
@@ -42,7 +32,7 @@ module.exports = {
     });
     
     player.on(AudioPlayerStatus.Playing, () => {
-      console.log("Audio is now Playing");
+      console.log("Someone is getting morbed");
     });
 
     player.on(AudioPlayerStatus.Idle, () => {
