@@ -12,7 +12,6 @@ module.exports = {
     switch(interaction.options.getSubcommand()) {
       case "server": {
         const roleList = interaction.guild.roles.cache;
-        console.log(roleList);
         interaction.reply( {
           embeds: [
             new EmbedBuilder()
