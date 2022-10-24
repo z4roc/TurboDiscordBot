@@ -37,6 +37,9 @@ client.once("ready", () => {
 });
 
 client.on("guildMemberAdd", async (member) => {
+    if(member.guild.id != process.env.GUILD_ID) {
+        return;
+    }
     let role = member.guild.roles.cache.find(r => r.name === "Normies");
     await member.roles.add(role);
     const channel = client.channels.cache.find(c => c.name === "welcome");
