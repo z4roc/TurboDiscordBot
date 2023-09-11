@@ -31,7 +31,7 @@ client.login(process.env.DISCORD_TOKEN);
 client.once("ready", () => {
     console.log(`${client.user.tag} is now online!`);
     client.user.setActivity({
-        name: "Hentai in 4k",
+        name: "Youtube",
         type: ActivityType.Watching
     });  
 });
